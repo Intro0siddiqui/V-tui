@@ -1,32 +1,33 @@
-# Implementation Plan: Sixel Graphics Support
+# Implementation Plan: Sixel Graphics Support (Foot-Level Refinement Loop)
 
-## Phase 1: Verification and Bug Identification
-- [ ] Task: Create a comprehensive Sixel test suite
-    - [ ] Write unit tests in `src/sixel.zig` for all DCS parameter combinations (P1, P2, P3).
-    - [ ] Create a standalone `test_sixel_rendering.zig` to verify direct and scaled blitting.
-- [ ] Task: Run current Sixel implementation against complex patterns
-    - [ ] Use `neofetch` and `btop` with Sixel output enabled.
-    - [ ] Use `test-render.sh` to capture and compare PPM screenshots against `foot`.
-- [ ] Task: Identify and document any rendering or parsing regressions.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Verification and Bug Identification' (Protocol in workflow.md)
+## Phase 1: Baseline Establishment (Initial Capability)
+- [ ] Task: Establish Performance & Fidelity Baseline
+    - [ ] Run `test-render.sh` to capture current Sixel output (e.g., using `neofetch`).
+    - [ ] Run `compare-foot.sh` to capture reference output from `foot`.
+    - [ ] Use a tool like `magick compare` or manual inspection of `diff.png` to quantify the 'Fidelity Gap'.
+- [ ] Task: Conductor - User Manual Verification 'Baseline Establishment' (Protocol in workflow.md)
 
-## Phase 2: Parser and Renderer Polishing
-- [ ] Task: Refine Sixel transparency support
-    - [ ] Write Tests: Ensure `SixelImage.data` correctly preserves alpha information from DCS P2=1.
-    - [ ] Implement: Update `Renderer.blitSixelImageDirect/Scaled` to support per-pixel alpha blending.
-- [ ] Task: Correctly handle DECGRA Raster Attributes
-    - [ ] Write Tests: Verify `SixelParser` correctly applies pan, pad, width, and height.
-    - [ ] Implement: Ensure image pre-allocation and aspect ratio calculation are accurate.
-- [ ] Task: Optimize Sixel image storage in Grid
-    - [ ] Write Tests: Verify images are correctly cleared when text is written over them.
-    - [ ] Implement: Ensure memory is freed properly during grid clear and resize operations.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Parser and Renderer Polishing' (Protocol in workflow.md)
+## Phase 2: Iterative Refinement & Optimization Loop (Recurrent)
+*This phase is repeated until Sixel rendering reaches 'foot-level' quality and performance.*
 
-## Phase 3: Performance and Integration
-- [ ] Task: Optimize Sixel blitting performance
-    - [ ] Write Tests: Benchmark blitting for high-resolution Sixel images.
-    - [ ] Implement: Apply SIMD optimizations (Zig `@Vector`) for Sixel pixel blitting where possible.
-- [ ] Task: Integrate Sixel support into main PTY loop
-    - [ ] Write Tests: Ensure PTY reads correctly pass Sixel sequences to the parser.
-    - [ ] Implement: Verify seamless rendering during high-frequency PTY updates.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Performance and Integration' (Protocol in workflow.md)
+- [ ] Task: Identify Current Primary Bottleneck or Fidelity Issue
+    - [ ] Analyze: Is it Transparency (P2=1)? Raster Attributes (DECGRA)? SIMD Performance?
+- [ ] Task: Implement Targeted Improvement
+    - [ ] Write Tests: Create a reproduction/test case for the identified issue.
+    - [ ] Implement: Apply the fix or optimization (e.g., SIMD blitting, alpha-blending logic).
+- [ ] Task: Re-Verify and Benchmark
+    - [ ] Run `test-render.sh` and compare the new output to both the previous 'Baseline' and the 'Foot Reference'.
+    - [ ] Measure Performance: Capture the blit time and compare with previous iterations.
+- [ ] Task: Loop Decision: 'Are we at Foot-Level yet?'
+    - [ ] If NO: Reset sub-tasks and repeat this phase for the next improvement.
+    - [ ] If YES: Proceed to Final Integration.
+- [ ] Task: Conductor - User Manual Verification 'Refinement Loop' (Protocol in workflow.md)
+
+## Phase 3: Final Integration & Stability
+- [ ] Task: Verify Full Grid & Scrollback Integration
+    - [ ] Ensure Sixel images remain stable during heavy PTY I/O and window resizing.
+    - [ ] Verify proper memory deallocation for multiple high-resolution images.
+- [ ] Task: Final Build and Stress Test
+    - [ ] Run `zig build test` and verify 85% coverage.
+    - [ ] Perform a final visual check with `btop` and `neofetch`.
+- [ ] Task: Conductor - User Manual Verification 'Final Integration' (Protocol in workflow.md)
