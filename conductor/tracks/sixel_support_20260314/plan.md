@@ -1,10 +1,10 @@
 # Implementation Plan: Sixel Graphics Support (Foot-Level Refinement Loop)
 
 ## Phase 1: Baseline Establishment (Initial Capability)
-- [ ] Task: Establish Performance & Fidelity Baseline
-    - [ ] Run `test-render.sh` to capture current Sixel output (e.g., using `neofetch`).
-    - [ ] Run `compare-foot.sh` to capture reference output from `foot`.
-    - [ ] Use a tool like `magick compare` or manual inspection of `diff.png` to quantify the 'Fidelity Gap'.
+- [x] Task: Establish Performance & Fidelity Baseline
+    - [x] Run `test-render.sh` to capture current Sixel output (e.g., using `neofetch`).
+    - [x] Run `compare-foot.sh` to capture reference output from `foot`.
+    - [x] Use a tool like `magick compare` or manual inspection of `diff.png` to quantify the 'Fidelity Gap'.
 - [ ] Task: Conductor - User Manual Verification 'Baseline Establishment' (Protocol in workflow.md)
 
 ## Phase 2: Iterative Refinement & Optimization Loop (Recurrent)

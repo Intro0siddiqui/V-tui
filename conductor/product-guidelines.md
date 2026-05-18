@@ -14,4 +14,4 @@
 ## Development Principles
 *   **Production Readiness:** Every change must move the engine toward a state of being reliable and production-ready.
 *   **Performance First:** Prioritize high-performance, cache-friendly data structures and algorithms.
-*   **Pixel Accuracy:** All rendering must be verified for pixel-perfect consistency against reference implementations (like the `foot` terminal).
+*   **Pixel Accuracy:** All rendering must be verified for pixel-perfect consistency against reference implementations (like the `foot` terminal). Note: Because `foot` uses a custom configuration that affects automated calculations, the AI agent MUST manually read and visually compare the PNG screenshots (e.g., `screenshot.png` vs. `foot_screenshot.png`) to judge improvements or regressions.

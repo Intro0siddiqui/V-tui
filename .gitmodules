@@ -1,0 +1,6 @@
+[submodule "refs/foot"]
+	path = refs/foot
+	url = https://codeberg.org/dnkl/foot.git
+[submodule "refs/ghostty"]
+	path = refs/ghostty
+	url = https://github.com/ghostty-org/ghostty.git
